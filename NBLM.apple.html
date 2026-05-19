@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蘋果爹科技爆料與評測情報站 - 依據最新爆料與評測指標</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons (用於現代科技感圖示) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            appleGray: {
+              50: '#f5f5f7',
+              100: '#e8e8ed',
+              800: '#1d1d1f',
+              900: '#121212',
+            },
+            accentRed: '#ff3b30',
+            accentOrange: '#ff9500',
+            accentBlue: '#007aff',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 煙霧毛玻璃特效與自定義滾動條 */
+    .glass-nav {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-appleGray-50 text-appleGray-800 dark:bg-appleGray-900 dark:text-appleGray-50 transition-colors duration-300 font-sans antialiased">
+
+  <!-- 頂部導航欄 -->
+  <nav class="sticky top-0 z-50 w-full border-b border-appleGray-100 dark:border-neutral-800 bg-white/80 dark:bg-appleGray-900/80 glass-nav transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="bg-black text-white p-2 rounded-xl dark:bg-white dark:text-black transition-colors">
+            <i data-lucide="aperture" class="w-6 h-6 animate-spin-slow"></i>
+          </div>
+          <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-accentBlue via-accentOrange to-accentRed bg-clip-text text-transparent">蘋果爹情報特區</span>
+        </div>
+        
+        <!-- 導航選單 (桌面端) -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="#timeline" class="hover:text-accentBlue transition-colors">爆料時間軸</a>
+          <a href="#comparator" class="hover:text-accentBlue transition-colors">硬體對決</a>
+          <a href="#decision-tree" class="hover:text-accentBlue transition-colors">採購決策樹</a>
+          <a href="#knowledge-hub" class="hover:text-accentBlue transition-colors">知識檢索庫</a>
+          <a href="#faq" class="hover:text-accentBlue transition-colors">趣味冷知識</a>
+        </div>
+
+        <!-- 互動控制：暗色模式切換 + 手機選單開關 -->
+        <div class="flex items-center gap-4">
+          <button id="themeToggle" class="p-2 rounded-full bg-appleGray-100 dark:bg-neutral-800 hover:scale-105 transition-transform" title="切換深淺主題">
+            <i data-lucide="sun" id="sunIcon" class="w-5 h-5 text-accentOrange hidden dark:block"></i>
+            <i data-lucide="moon" id="moonIcon" class="w-5 h-5 text-accentBlue dark:hidden"></i>
+          </button>
+          
+          <button id="mobileMenuBtn" class="p-2 md:hidden rounded-lg bg-appleGray-100 dark:bg-neutral-800" title="開啟選單">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 手機端選單 -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-appleGray-100 dark:border-neutral-800 bg-white dark:bg-appleGray-900 px-4 py-4 space-y-3 transition-all">
+      <a href="#timeline" class="block py-2 hover:text-accentBlue">⏳ 爆料時間軸</a>
+      <a href="#comparator" class="block py-2 hover:text-accentBlue">⚔️ 硬體大對決</a>
+      <a href="#decision-tree" class="block py-2 hover:text-accentBlue">🌲 採購決策樹</a>
+      <a href="#knowledge-hub" class="block py-2 hover:text-accentBlue">🔍 知識檢索庫</a>
+      <a href="#faq" class="block py-2 hover:text-accentBlue">💡 趣味冷知識</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden bg-white dark:bg-appleGray-800 py-16 md:py-24 border-b border-appleGray-100 dark:border-neutral-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accentRed/10 text-accentRed text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-accentRed animate-ping"></span> 
+          2026 最新爆料整合：從 A20 晶片、MacBook Neo 到 FSD 落地！
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
+          拒絕盲目跟風！<br>
+          <span class="bg-gradient-to-r from-accentBlue to-accentRed bg-clip-text text-transparent">用數據與核心痛點</span><br>
+          看清蘋果的完美算盤
+        </h1>
+        <p class="text-lg text-neutral-500 dark:text-neutral-400 max-w-xl">
+          本站彙整「蘋果爹」科技頻道共 20 部精彩評測與內部爆料，涵蓋 iPhone 18 可變光圈、MacBook Neo 生態價格戰、Tesla Diner &amp; FSD 實測、B&amp;O Grace 頂級音質。用最清醒的視角，為您解構 3C 配件背後的商業陰謀。
+        </p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="#decision-tree" class="px-6 py-3 rounded-xl bg-accentBlue text-white font-semibold hover:bg-blue-600 shadow-lg shadow-accentBlue/20 transition-all">
+            互動採購指南 &rarr;
+          </a>
+          <a href="#knowledge-hub" class="px-6 py-3 rounded-xl bg-appleGray-100 dark:bg-neutral-800 font-semibold hover:bg-appleGray-200 dark:hover:bg-neutral-700 transition-all">
+            檢索 20 部影片知識
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 relative">
+        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-accentBlue to-accentRed opacity-30 blur-xl"></div>
+        <div class="relative bg-appleGray-50 dark:bg-neutral-900 p-6 rounded-2xl border border-appleGray-100 dark:border-neutral-800 shadow-2xl">
+          <!-- 核心精選小卡 -->
+          <h3 class="text-sm font-bold text-accentOrange uppercase tracking-widest mb-4">📢 重磅爆料焦點</h3>
+          <div class="space-y-4">
+            <div class="flex gap-3 items-start border-b border-appleGray-100 dark:border-neutral-800 pb-3">
+              <span class="text-2xl">💻</span>
+              <div>
+                <h4 class="font-bold text-sm">MacBook Neo 賣太好面臨停產？</h4>
+                <p class="text-xs text-neutral-500 mt-1">因採用 iPhone 15 Pro 回收良率剩餘的 A18 Pro 邊角料晶片，全球搶購導致晶片缺貨，庫克面臨方案抉擇中！</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start border-b border-appleGray-100 dark:border-neutral-800 pb-3">
+              <span class="text-2xl">📱</span>
+              <div>
+                <h4 class="font-bold text-sm">iPhone 18 動態島縮小與位移</h4>
+                <p class="text-xs text-neutral-500 mt-1">螢幕下方 FaceID 隱形感應技術尚未完全成熟，2026年依然維持居中藥丸，但整體開孔尺寸小幅收窄。</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="text-2xl">🚗</span>
+              <div>
+                <h4 class="font-bold text-sm">Tesla V4 超充餐廳與自動駕駛</h4>
+                <p class="text-xs text-neutral-500 mt-1">LA Tesla Diner 開箱！自帶 Cybertruck 造型餐具，美國德州 FSD 優雅會車、無地平線導航實測超驚豔。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section: Timeline 爆料時間軸 -->
+  <section id="timeline" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-appleGray-100 dark:border-neutral-800">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl font-extrabold tracking-tight">🍎 蘋果爹獨家：2026 - 2028 產品路線圖</h2>
+      <p class="mt-4 text-neutral-500 dark:text-neutral-400">
+        整理自多期爆料，涵蓋分析師 Ross Young、郭明錤及供應鏈內部打樣進度。
+      </p>
+    </div>
+
+    <!-- 時間軸佈局 -->
+    <div class="relative border-l-2 border-accentBlue/30 ml-4 md:ml-32 space-y-12">
+      <!-- 2026 春季 -->
+      <div class="relative pl-8 md:pl-12">
+        <div class="absolute -left-2 top-1.5 w-4.5 h-4.5 rounded-full bg-accentBlue border-4 border-white dark:border-appleGray-900"></div>
+        <div class="absolute -left-32 top-0 hidden md:block w-24 text-right">
+          <span class="text-xs font-bold text-accentBlue bg-accentBlue/10 px-2 py-1 rounded-full">2026 春季</span>
+        </div>
+        <div class="bg-white dark:bg-appleGray-800 p-6 rounded-2xl shadow-sm border border-appleGray-100 dark:border-neutral-800 transition-all hover:shadow-md">
+          <span class="md:hidden inline-block text-xs font-bold text-accentBlue bg-accentBlue/10 px-2 py-1 rounded-full mb-2">2026 春季</span>
+          <h3 class="text-lg font-bold">三月特別體驗會 (Apple Special Experience)</h3>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+            打破 Apple Event 傳統，同時在全球三大城舉辦實體上手會。正式發表搭載 <strong>A18 Pro 晶片、599美金</strong> 的輕薄入門型 <strong>MacBook Neo</strong>，主打學生市場。並同步更新 M5 晶片 MacBook Air 以及搭載 M4 晶片的 iPad Air。
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#MacBookNeo</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#A18Pro</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#教育市場戰略</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 秋季 -->
+      <div class="relative pl-8 md:pl-12">
+        <div class="absolute -left-2 top-1.5 w-4.5 h-4.5 rounded-full bg-accentOrange border-4 border-white dark:border-appleGray-900"></div>
+        <div class="absolute -left-32 top-0 hidden md:block w-24 text-right">
+          <span class="text-xs font-bold text-accentOrange bg-accentOrange/10 px-2 py-1 rounded-full">2026 秋季</span>
+        </div>
+        <div class="bg-white dark:bg-appleGray-800 p-6 rounded-2xl shadow-sm border border-appleGray-100 dark:border-neutral-800 transition-all hover:shadow-md">
+          <span class="md:hidden inline-block text-xs font-bold text-accentOrange bg-accentOrange/10 px-2 py-1 rounded-full mb-2">2026 秋季</span>
+          <h3 class="text-lg font-bold">iPhone 18 系列：啞鈴型價格戰</h3>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+            全面啟用<strong>台積電 2 奈米 A20 Pro 晶片</strong>（成本飛漲，起售價由強大議價能力與服務營收補貼不變）。首度引入 <strong>1/1.12 吋超大感光元件 + 實體機械可變光圈</strong>。高規推出 <strong>iPhone Ultra 摺疊機</strong>（開合比例神似 iPad mini，配備液態金屬鉸鏈與動態變位不留折痕設計）。
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#機械可變光圈</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#台積電2奈米</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#iPhoneUltra</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2027 年 -->
+      <div class="relative pl-8 md:pl-12">
+        <div class="absolute -left-2 top-1.5 w-4.5 h-4.5 rounded-full bg-accentRed border-4 border-white dark:border-appleGray-900"></div>
+        <div class="absolute -left-32 top-0 hidden md:block w-24 text-right">
+          <span class="text-xs font-bold text-accentRed bg-accentRed/10 px-2 py-1 rounded-full">2027 年</span>
+        </div>
+        <div class="bg-white dark:bg-appleGray-800 p-6 rounded-2xl shadow-sm border border-appleGray-100 dark:border-neutral-800 transition-all hover:shadow-md">
+          <span class="md:hidden inline-block text-xs font-bold text-accentRed bg-accentRed/10 px-2 py-1 rounded-full mb-2">2027 年</span>
+          <h3 class="text-lg font-bold">iPhone 20 週年紀念款：真・全螢幕時代</h3>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+            螢幕下 FaceID 紅外線感應與隱藏前置鏡頭技術成熟。告別從 iPhone 14 Pro 沿用至今的動態島藥丸，實現真正「無孔無舞蹈」的完美視效。第二代 iPhone Air 亦將延期至此時推出，補齊雙鏡頭與超廣角短板。
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#20週年紀念</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#螢幕下鏡頭</span>
+            <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-700 rounded-md">#真全螢幕</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Comparator 硬體規格大對決 -->
+  <section id="comparator" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-appleGray-100 dark:border-neutral-800">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-3xl font-extrabold tracking-tight">⚔️ 熱門硬體大對決 (評測解密)</h2>
+      <p class="mt-4 text-neutral-500 dark:text-neutral-400">
+        蘋果爹親自實測！將極具爭議的幾組熱門科技產品放在一起，為您拆解優缺點。
+      </p>
+    </div>
+
+    <!-- 切換 Tab 選單 -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button onclick="switchTab('laptop')" id="tab-laptop" class="tab-btn px-4 py-2 rounded-xl font-bold bg-accentBlue text-white shadow-sm transition-all text-sm">💻 MacBook 入門之戰</button>
+      <button onclick="switchTab('mobile')" id="tab-mobile" class="tab-btn px-4 py-2 rounded-xl font-bold bg-appleGray-100 dark:bg-neutral-800 text-neutral-500 transition-all text-sm">📱 旗艦手機交鋒</button>
+      <button onclick="switchTab('tesla')" id="tab-tesla" class="tab-btn px-4 py-2 rounded-xl font-bold bg-appleGray-100 dark:bg-neutral-800 text-neutral-500 transition-all text-sm">🚗 特斯拉豪華比拼</button>
+    </div>
+
+    <!-- Tab Content 1: Laptop -->
+    <div id="content-laptop" class="tab-content grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- MacBook Neo -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentRed/10 text-accentRed">真香或割韭菜？</span>
+            <h3 class="text-2xl font-bold mt-2">MacBook Neo (512GB)</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">NT$17,000 ~ 20,000 起</span>
+        </div>
+        <p class="text-sm text-neutral-500">蘋果最便宜的全新設計筆電，採用沙粉與天藍色外觀，掀起教育市場與家長狂熱。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>無瀏海完整全螢幕、玻璃軌跡板與細緻鍵盤、喇叭反射擴音層次感極佳、日常文書與 Canva 圖檔流暢無比。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點與硬傷：</strong>A18 Pro 記憶體頻寬減半，8GB RAM 多工極易卡頓；無雷電規格，雙 C 埠一快一慢(一孔為USB 2)；盒裝僅附 20W 充電超慢（建議加購 30W-40W 翻倍體驗）。</div>
+        </div>
+      </div>
+      <!-- MacBook Air -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentBlue/10 text-accentBlue">理性一勞永逸</span>
+            <h3 class="text-2xl font-bold mt-2">MacBook Air (M2/M3)</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">NT$22,000 ~ 25,000 (整新品)</span>
+        </div>
+        <p class="text-sm text-neutral-500">在各大電商曾出現 2 萬出頭的官方整新品，具備極強生產力，短期內被果粉瘋搶一空。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>M 系列晶片頻寬更寬，8GB RAM 相比更耐多工；雙 C 埠皆支援雷電規格與外接多種 SSD 讀寫；電池大 50%，充電支援 70W 極速補電。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點：</strong>配備突兀的螢幕瀏海，常遮擋選單小工具且未見優化；機身較 Neo 稍微厚重，顏色選擇相對保守。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content 2: Mobile -->
+    <div id="content-mobile" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- S26 Ultra -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentOrange/10 text-accentOrange">安卓物理外掛</span>
+            <h3 class="text-2xl font-bold mt-2">Galaxy S26 Ultra</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">約 NT$42,000 起</span>
+        </div>
+        <p class="text-sm text-neutral-500">三星 2026 頂級旗艦，厚度與重量大幅減輕，影像算法銳化更積極。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>智慧防窺螢幕（像素級偏光發光，僅機主直視可見，完美維護捷運隱私與防爆 PING）、超強水平鎖定（主鏡頭/超廣角錄影 360 度旋轉畫面依然持平）、AI 生成照片（輸入指令能自動延伸全桌小籠包與鹹豆漿）。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點：</strong>機身邊框學蘋果退回鋁合金，耐摔度不如鈦合金；主鏡頭近距離對焦距離變遠。</div>
+        </div>
+      </div>
+      <!-- iPhone 17 Pro Max -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentRed/10 text-accentRed">多邊形錄影戰士</span>
+            <h3 class="text-2xl font-bold mt-2">iPhone 17 Pro Max</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">約 NT$44,900 起</span>
+        </div>
+        <p class="text-sm text-neutral-500">蘋果現役最高端，以一體化玻璃接合背板與「痠痛貼布」設計引起高度話題性。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>錄影高光對比抑制第一，整體色調圓潤；前置相機改為正方形感光元件（直拿可拍橫式且眼神置中不歪斜）；支援 iOS 26.2 繁中 Apple Intelligence 摘要與語氣調教。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點：</strong>曾爆出極嚴重的 5G/4G 連線中斷與爆 PING 災情（玩手遊致命痛點，iOS 26.2 Beta 3 始有解）；鋁合金材質易有摔傷凹痕。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content 3: Tesla -->
+    <div id="content-tesla" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Model X (Plaid) -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentBlue/10 text-accentBlue">奢華科技旗艦</span>
+            <h3 class="text-2xl font-bold mt-2">Model X Plaid</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">NT$3,649,900 起</span>
+        </div>
+        <p class="text-sm text-neutral-500">百萬級豪華休旅，標配超酷炫鷹翼門，擁有無與倫比的前擋直升機視野。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>五段調校氣壓避震，路感舒適度完勝 Model Y；二排中間走道全平且寬敞無比，狗能輕鬆趴下；自帶超精緻隱藏式氛圍燈與 Yoke 方向盤、自研前鏡頭輔助。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點：</strong>第三排膝部空間稍顯狹窄；三排座椅收折為手動推拉；零件拼裝繁多，車內微小摩擦異音較 Model Y 稍微明顯。</div>
+        </div>
+      </div>
+      <!-- Model Y L / P -->
+      <div class="bg-white dark:bg-appleGray-800 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-accentRed/10 text-accentRed">極致實用王者</span>
+            <h3 class="text-2xl font-bold mt-2">Model Y Performance / Long Range</h3>
+          </div>
+          <span class="text-xl font-extrabold text-neutral-900 dark:text-white">NT$2,100,000 ~ 2,500,000</span>
+        </div>
+        <p class="text-sm text-neutral-500">2026 年主流，Performance 版升級 Insane Mode 彈射、運動包圍與 21 吋輪框。</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-2 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>優點：</strong>極簡造車工藝，異音更少，二排傾倒後置物容量竟然與 Cybertruck 等大，且支援全自動電動收折；大腿腿托充氣調整；台灣引進 L 版後更為實用。</div>
+          <div class="flex gap-2 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-5 h-5 flex-shrink-0"></i> <strong>缺點：</strong>原廠避震過軟容易有「布丁餘震感」讓後座暈車，常需尋求外廠 KONI（SPORT或變色龍自適應）避震升級，或者忍受 P 版較明顯的硬朗碎震。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Decision Tree 採購指南決策樹 -->
+  <section id="decision-tree" class="py-16 bg-white dark:bg-appleGray-800 border-b border-appleGray-100 dark:border-neutral-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl font-extrabold tracking-tight">🌲 蘋果爹採購指南 ＆ 避震器選擇器</h2>
+        <p class="mt-4 text-neutral-500 dark:text-neutral-400">
+          別再買錯了！回答以下情境問題，直接找出最符合你生活與預算需求的硬體方案。
+        </p>
+      </div>
+
+      <!-- 雙決策樹並行 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- 決策樹 1: MacBook Neo vs Air vs iPad Air -->
+        <div class="bg-appleGray-50 dark:bg-neutral-950 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-6">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-accentBlue/10 text-accentBlue"><i data-lucide="laptop" class="w-6 h-6"></i></div>
+            <h3 class="text-xl font-bold">1. 輕度/學生行動端裝置指南</h3>
+          </div>
+          <p class="text-xs text-neutral-500">適用情境：預算有限、日常文書、看報表、學校功課或想繪圖繪畫。</p>
+          
+          <!-- 互動測驗區 1 -->
+          <div id="laptop-quiz" class="space-y-6">
+            <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+              <span class="text-xs text-neutral-400">問題 1 / 2</span>
+              <p class="font-semibold text-sm mt-1">您平常是否有「手寫筆記、繪畫或繪圖」的創作需求？</p>
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <button onclick="setLaptopStep(1, 'yes')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue active:bg-accentBlue/10 transition-all text-left">✍️ 有，超愛隨手畫畫創作</button>
+                <button onclick="setLaptopStep(1, 'no')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue active:bg-accentBlue/10 transition-all text-left">⌨️ 無，主要打字、上網與文書</button>
+              </div>
+            </div>
+          </div>
+          <!-- 顯示結果 1 -->
+          <div id="laptop-result" class="hidden p-6 rounded-2xl bg-accentBlue/5 border border-accentBlue/20 space-y-3">
+            <span class="text-xs font-bold text-accentBlue uppercase tracking-wider">🎯 蘋果爹推薦您買：</span>
+            <h4 id="laptop-result-title" class="text-xl font-bold">產品名稱</h4>
+            <p id="laptop-result-desc" class="text-sm text-neutral-600 dark:text-neutral-300">產品說明...</p>
+            <button onclick="resetLaptopQuiz()" class="text-xs text-accentBlue underline flex items-center gap-1"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>重新測驗</button>
+          </div>
+        </div>
+
+        <!-- 決策樹 2: 特斯拉避震器選擇器 -->
+        <div class="bg-appleGray-50 dark:bg-neutral-950 p-8 rounded-3xl border border-appleGray-100 dark:border-neutral-800 space-y-6">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-accentOrange/10 text-accentOrange"><i data-lucide="car" class="w-6 h-6"></i></div>
+            <h3 class="text-xl font-bold">2. Model Y 避震器與版本推薦</h3>
+          </div>
+          <p class="text-xs text-neutral-500">適用情境：解決 Y 原廠布丁餘震、防暈車、追求駕馭樂趣或後座滿載家人寵物。</p>
+          
+          <!-- 互動測驗區 2 -->
+          <div id="tesla-quiz" class="space-y-6">
+            <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+              <span class="text-xs text-neutral-400">問題 1 / 2</span>
+              <p class="font-semibold text-sm mt-1">你的 Model Y 載客習慣，平常最重視的是誰的體感？</p>
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <button onclick="setTeslaStep(1, 'driver')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">😎 自己開，享受操控指向與路感</button>
+                <button onclick="setTeslaStep(1, 'family')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">👨‍👩‍👧 載家人與毛孩，最怕後座顛簸暈車</button>
+              </div>
+            </div>
+          </div>
+          <!-- 顯示結果 2 -->
+          <div id="tesla-result" class="hidden p-6 rounded-2xl bg-accentOrange/5 border border-accentOrange/20 space-y-3">
+            <span class="text-xs font-bold text-accentOrange uppercase tracking-wider">🎯 蘋果爹推薦您買：</span>
+            <h4 id="tesla-result-title" class="text-xl font-bold">避震器名稱</h4>
+            <p id="tesla-result-desc" class="text-sm text-neutral-600 dark:text-neutral-300">避震器特點說明...</p>
+            <button onclick="resetTeslaQuiz()" class="text-xs text-accentOrange underline flex items-center gap-1"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>重新測驗</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Search / Knowledge Hub 影片檢索庫 -->
+  <section id="knowledge-hub" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-appleGray-100 dark:border-neutral-800">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-3xl font-extrabold tracking-tight">🔍 蘋果爹評測知識庫與智慧搜尋</h2>
+      <p class="mt-4 text-neutral-500 dark:text-neutral-400">
+        輸入關鍵字（如：<strong>iPhone 18、變色龍、三宅一生、B&amp;O</strong>），秒級檢索 20 部蘋果爹上傳影片之逐字精華與重要結論。
+      </p>
+    </div>
+
+    <!-- 搜尋框與分類篩選器 -->
+    <div class="max-w-2xl mx-auto mb-12 space-y-4">
+      <div class="relative">
+        <input type="text" id="searchInput" oninput="filterKnowledge()" placeholder="搜尋產品名稱、規格或影片金句..." class="w-full pl-12 pr-4 py-4 rounded-2xl border border-appleGray-100 dark:border-neutral-800 bg-white dark:bg-appleGray-800 focus:outline-none focus:ring-2 focus:ring-accentBlue transition-all shadow-sm">
+        <i data-lucide="search" class="w-6 h-6 absolute left-4 top-4.5 text-neutral-400"></i>
+      </div>
+      
+      <!-- 分類標籤 -->
+      <div class="flex flex-wrap gap-2 justify-center" id="categoryTags">
+        <button onclick="filterCategory('all')" class="cat-tag px-3.5 py-1.5 rounded-full text-xs font-semibold bg-accentBlue text-white transition-all">全部內容</button>
+        <button onclick="filterCategory('iPhone')" class="cat-tag px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-appleGray-800 border dark:border-neutral-800 text-neutral-500 transition-all">iPhone 系列</button>
+        <button onclick="filterCategory('Mac')" class="cat-tag px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-appleGray-800 border dark:border-neutral-800 text-neutral-500 transition-all">Mac / iPad</button>
+        <button onclick="filterCategory('Tesla')" class="cat-tag px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-appleGray-800 border dark:border-neutral-800 text-neutral-500 transition-all">Tesla &amp; 汽車</button>
+        <button onclick="filterCategory('Accessories')" class="cat-tag px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-appleGray-800 border dark:border-neutral-800 text-neutral-500 transition-all">音訊與精品周邊</button>
+      </div>
+    </div>
+
+    <!-- 知識卡片網格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="knowledgeGrid">
+      <!-- JavaScript 會在此處動態生成卡片 -->
+    </div>
+  </section>
+
+  <!-- Section: FAQ 趣味冷知識與隱藏彩蛋 -->
+  <section id="faq" class="py-16 bg-white dark:bg-appleGray-800 border-b border-appleGray-100 dark:border-neutral-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl font-extrabold tracking-tight">💡 蘋果爹趣味冷知識與彩蛋</h2>
+        <p class="mt-4 text-neutral-500 dark:text-neutral-400">
+          深讀《蘋果之道》與爆料，解碼最獵奇、最令人痛心的 3C 歷史。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- 冷知識 1 -->
+        <div class="p-6 rounded-2xl bg-appleGray-50 dark:bg-neutral-900 border border-appleGray-100 dark:border-neutral-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-accentRed bg-accentRed/10 px-2 py-0.5 rounded">悔恨之最</span>
+            <span class="text-xs text-neutral-400">《蘋果之道》</span>
+          </div>
+          <h3 class="font-bold text-base">價值 11.2 兆台幣的「最痛資遣費」</h3>
+          <p class="text-xs text-neutral-500 leading-relaxed">
+            蘋果其實有第三位創辦人 <strong>Ron Wayne (Ronald Wayne)</strong>。當初賈伯斯與沃茲尼克常起爭執，找他加入作為 10% 股權的中立決策人。但他因曾經創業失敗欠債，怕賈伯斯的融資與龐大債務連累自身財產，僅在公司創立 <strong>11 天後</strong>便以 <strong>800 美元加上 1500 美元資遣費</strong>退股。若拿到今天，這 10% 股份價值高達 <strong>3,500 億美元（約 11.2 兆台幣）</strong>！他甚至在 90 年代以 500 美金賣掉了打字機合約原件，該原件於 2011 年被拍賣出 159 萬美元。
+          </p>
+        </div>
+
+        <!-- 冷知識 2 -->
+        <div class="p-6 rounded-2xl bg-appleGray-50 dark:bg-neutral-900 border border-appleGray-100 dark:border-neutral-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-accentOrange bg-accentOrange/10 px-2 py-0.5 rounded">黑客大開</span>
+            <span class="text-xs text-neutral-400">《AI 助理與 Mac mini》</span>
+          </div>
+          <h3 class="font-bold text-base">Mac mini 斷貨的元兇：Clawdbot/Mbot</h3>
+          <p class="text-xs text-neutral-500 leading-relaxed">
+            最近因諧音改名為 <strong>Mbot</strong> 的 AI Agent，因運行成本低，直接導致 M4 版 Mac mini 全球大缺貨！相較於 Gemini 或 ChatGPT 的網頁聊手機，Mbot 在獲得極高系統管理權限後，可以直接操作電腦內所有的 APPs 運作，例如語音下令將 PDF 存入 Notion 再自動包裝成 email 發信。但蘋果爹提醒：安全風險極高！AI 幻覺可能會誤判指令而把整台電腦清空，或被有心人士利用聰明提詞經由 email 傳送電腦內所有敏感資料，強烈建議初學者別在主力電腦上嘗試。
+          </p>
+        </div>
+
+        <!-- 冷知識 3 -->
+        <div class="p-6 rounded-2xl bg-appleGray-50 dark:bg-neutral-900 border border-appleGray-100 dark:border-neutral-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-accentBlue bg-accentBlue/10 px-2 py-0.5 rounded">時尚天價</span>
+            <span class="text-xs text-neutral-400">《聯名配件》</span>
+          </div>
+          <h3 class="font-bold text-base">三宅一生 iPhone Pocket 天價布套</h3>
+          <p class="text-xs text-neutral-500 leading-relaxed">
+            蘋果最貴的一塊布不再是 19 美元的擦拭布，而是與 <strong>三宅一生（ISSEY MIYAKE）</strong> 限量聯名的 <strong>iPhone Pocket 編織布套</strong>！採用專利 3D 編織一塊布技術，短版定價 NT$4,990，長版天價 NT$7,790。雖然不防水不防摔也無多餘信用卡收納，但其致敬了 20 年前賈伯斯推出的 29 美元經典「iPod Socks」小襪子，將趣味變成當代時尚。
+          </p>
+        </div>
+
+        <!-- 冷知識 4 -->
+        <div class="p-6 rounded-2xl bg-appleGray-50 dark:bg-neutral-900 border border-appleGray-100 dark:border-neutral-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-600/10 px-2 py-0.5 rounded">秘密連動</span>
+            <span class="text-xs text-neutral-400">《Apple TV 之謎》</span>
+          </div>
+          <h3 class="font-bold text-base">MacBook Neo 其實是 Apple TV？</h3>
+          <p class="text-xs text-neutral-500 leading-relaxed">
+            蘋果爹在開箱設定 MacBook Neo (512GB) 時，發現一個驚人的小插曲。當使用 iPhone 的蘋果帳號遙控新電腦設定時，iOS 系統居然在畫面上將這台全新的筆電辨識為 <strong>Apple TV</strong>！這直接證實了 A18 Pro 晶片原本確實是留給大改款 Apple TV 使用的，但因 Neo 全球大熱賣，蘋果臨時將產線晶片緊急抽調給 Neo。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 Footer -->
+  <footer class="bg-appleGray-100 dark:bg-neutral-950 py-12 border-t border-appleGray-100 dark:border-neutral-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <div class="flex justify-center gap-3">
+        <div class="bg-black text-white p-2 rounded-lg dark:bg-white dark:text-black">
+          <i data-lucide="aperture" class="w-5 h-5"></i>
+        </div>
+        <span class="font-bold">蘋果爹情報站</span>
+      </div>
+      <p class="text-xs text-neutral-500">
+        本網站資訊完全依據上傳之「蘋果爹」頻道影片筆記整理。不對未來任何蘋果或特斯拉官方產品做任何 100% 準確性擔保。<br>
+        版權所有 &copy; 2026 蘋果爹粉絲團 ＆ 互動工程學苑。
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript 核心邏輯 -->
+  <script>
+    // 初始化 Lucide Icons
+    lucide.createIcons();
+
+    // 暗色模式切換
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    
+    // 預設為暗色模式，符合科技感
+    if (!localStorage.getItem('theme')) {
+      htmlEl.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else if (localStorage.getItem('theme') === 'dark') {
+      htmlEl.classList.add('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        htmlEl.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // 手機端選單
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 20 份影片知識庫數據
+    const knowledgeData = [
+      {
+        id: 1,
+        title: "Mac mini 斷貨的 AI 助理 Clawdbot",
+        category: "Mac",
+        brief: "只需一台 Mac mini 加上 Clawdbot (Mbot) AI agent，即可 24 小時遠端幫你自動化處理複雜行政任務。",
+        desc: "由於 M4 Mac mini 體積超小、運行安靜、採用高寬頻統一記憶體，對本地大語言模型推理速度奇快，致使 global 搶到斷貨。然而，權限大開的 AI 有失控與被釣魚外洩機密的極高風險，目前僅建議開發者於乾淨無私人資料的電腦上測試。",
+        tag: "Clawdbot / Mbot"
+      },
+      {
+        id: 2,
+        title: "札幌 3C 小物包與 AirPods Pro 3",
+        category: "Accessories",
+        brief: "日本札幌 12 月大折扣季，免稅加上當地優惠，挑選 3C 周邊小物與保護配件的最佳心得。",
+        desc: "影片中開箱了二手 Marc Jacobs 精品包作為 B&O 耳機的保護套（1300台幣真皮質感極高）。同時推薦在 PARCO 樓上星際大戰快閃店入手的 R2D2 與黑武士 3C 分裝收納包。服飾部分推薦 Herill 剪裁神褲、Jackman 日製大學T與 Uniqlo 喀什米爾極致親膚發熱衣。",
+        tag: "札幌採購"
+      },
+      {
+        id: 3,
+        title: "穿戴式 AI 裝置：再見 iPhone！",
+        category: "iPhone",
+        brief: "蘋果與 Open AI 將於 2026 推出無螢幕穿戴 AI 裝置，挑戰下個十年的互動核心。",
+        desc: "蘋果的裝置大小接近 AirTag，附兩顆鏡頭與 Apple Watch 式數位錶冠，高度依賴 Siri 2.0 處理任務與 Private Cloud Compute 隱私雲；Open AI 的「sweepe」由 Jony Ive 親自設計，配掛耳後，起步由紅海代工出貨 5000 萬台，兩大生態鏈將展開語音控制激烈交鋒。",
+        tag: "穿戴式AI"
+      },
+      {
+        id: 4,
+        title: "今年最不後悔的科技產品：Model Y",
+        category: "Tesla",
+        brief: "特斯拉 Model Y 購買半年後的軟體更新幅度甚至超越手機更新，開闢 FSD 前景。",
+        desc: "行車記錄器加入時間標記、手機忘在車上發出特別提示音、無線充電手動關閉功能、3D 立體地圖。此外，實測 FSD 在洛杉磯與北京高難度路段，解決 99.9% 路況。配備推薦：JAWA Type-C 專用車載冰箱及置於前行李箱的 12V 直充電動滑板車。",
+        tag: "Model Y 實測"
+      },
+      {
+        id: 5,
+        title: "iOS 26.1 更新與 iPhone 17 爆 Ping 災情",
+        category: "iPhone",
+        brief: "iPhone 17 系列在 4G/5G 連線中斷、爆 PING 高低起伏的災情測試與繁中 AI 特效。",
+        desc: "測試結果表明 iPhone 17 系列（唯獨採用自家晶片的 iPhone Air 沒事，其餘 eSIM 漫遊或實體卡皆同）存在嚴重的爆 PING 餘震。繁中 AI 則支援文字摘要、Gemoji、相機視覺辨識 Cybertruck。另爆料蘋果明年初將斥資 10 億美金租用 Google 1.2 兆參數的 Gemini 大腦升級 Siri 2.0。",
+        tag: "爆 PING / 繁中 AI"
+      },
+      {
+        id: 6,
+        title: "MacBook Neo vs. MacBook Air 怎麼選",
+        category: "Mac",
+        brief: "分析 Neo 的低價教育生態鏈策略。割韭菜還是真香？",
+        desc: "MacBook Neo 定價 599 美金，故意在內部塞重塑膠、刪去雷電、限缩記憶體頻寬不打擊 MacBook Air。但 2-3 年後，二手的 A18 Pro 晶片 Neo 有望跌到 1 萬台幣上下，將徹底消滅 Chromebook 在教育與學生市場的優勢。理性玩家如能找到同等價位的 M2 / M3 官方整新 Air，仍應優先選 Air。",
+        tag: "Neo 戰略分析"
+      },
+      {
+        id: 7,
+        title: "美國 Tesla Diner V4 超充餐廳開箱",
+        category: "Tesla",
+        brief: "洛杉磯 24 小時 Tesla V4 超充餐廳實測！霓虹燈復古與經典電影露天放送。",
+        desc: "開 Tesla 導航可直接在車機預訂 Giga Burger 與 Cybertruck 造型的薯條、餐具和紀念杯。現場設有專屬 Merch 商店販售黑色獨家機器人、霓虹燈招牌。雖然好萊塢偶有言論衝突，但 24 小時保全齊全，極具迪士尼般的主題公園儀式感。",
+        tag: "Tesla Diner"
+      },
+      {
+        id: 8,
+        title: "MacBook Neo 台灣上手：新手超好用教學",
+        category: "Mac",
+        brief: "最基礎的新手 macOS 操作邏輯，從 Dock、Finder、Command 快捷鍵講起。",
+        desc: "針對剛入手 MacBook Neo 的小白，教學開關機（指紋鎖兼強制關機鍵）、Dock 伸縮調整、選單列隨 APP 變化的邏輯，以及 Finder 側邊欄自定義。不關機是 Mac 常態，熟悉軌跡板後甚至可以徹底丟掉滑鼠。",
+        tag: "macOS 新手指南"
+      },
+      {
+        id: 9,
+        title: "蘋果 2026 首場發表會：Apple Special Experience",
+        category: "Mac",
+        brief: "配合川普對等關稅、轉向美國製造，以及庫克接班人的終極大重組。",
+        desc: "三月發表會將不叫 Apple Event。爆料 M5 MacBook Air、搭載 A18 處理器的入門 iPad 與 M4 iPad Air 同步登場。這也可能是庫克最後一次主持發表會，未來將交棒給同時掌握工程與設計大權的資深副總裁 John Ternus，庫克轉任董事長。",
+        tag: "2026 發表會爆料"
+      },
+      {
+        id: 10,
+        title: "iPhone 18 Pro 規格爆料：驚人紅/櫻桃紅色",
+        category: "iPhone",
+        brief: "iPhone 18 Pro 外觀與相機鏡頭重大升級，櫻桃紅與天際藍渲染 Pantone 色號出爐。",
+        desc: "爆料指出 18 Pro 將採用 Pantone 6076 暗櫻桃紅（融合博根地紫與咖啡色），取代去年的宇宙橘。螢幕配備 4000 尼特 LTPO Plus，因動態島縮小，內部 FaceID 模組左移。材質依然為鋁合金，推薦使用犀牛盾 ClearX 防摔抗黃殼進行邊框保護。",
+        tag: "暗櫻桃紅 / 18 Pro"
+      },
+      {
+        id: 11,
+        title: "iPad Air 買給大女兒：完美的一台作畫工具",
+        category: "Mac",
+        brief: "大女兒偏愛畫畫，二女兒指名 MacBook Neo，到底平板搭配鍵盤能否取代筆電？",
+        desc: "iPad Air M3 搭配 eiP 智定義巧控鍵盤（不到原廠 1/3 價格、支援 App 聯動 7 色背光）是高 CP 繪圖工具，重量比 Neo 輕一半，效能上輸出 Final Cut Pro 比 A18 Pro 晶片的 Neo 快約 30 秒。對於沒有手寫繪圖需求、偏向單純打報告的用戶，Neo 依然最順手。",
+        tag: "iPad Air vs. Neo"
+      },
+      {
+        id: 12,
+        title: "一定要更新 iOS 26.2！爆 Ping 終於解決",
+        category: "iPhone",
+        brief: "實測 iOS 26.2 Beta 3，困擾 iPhone 17 用戶已久的連線斷線、爆 PING 餘震災情完美修復。",
+        desc: "實測純 5G 與 4G 環境下，PING 值回歸正常穩定，手遊玩家必升！此版本另更新了已知 AirDrop 聯絡人（生成單次 30 天代碼，無需透露電話）、極致玻璃黑色模式液態顯示、以及水位式水平儀介面。Tesla 亦傳出將加入 CarPlay 輔助導航系統。",
+        tag: "iOS 26.2 災情有解"
+      },
+      {
+        id: 13,
+        title: "Model Y Performance 懸吊避震實測",
+        category: "Tesla",
+        brief: "Performance 版 250 萬元超划算套件：Insane 模式、21 吋輪圈、腿托與電子阻尼懸吊。",
+        desc: "新 Y P 配備主動式電子懸吊（分標準與跑車模式），極大改善了原廠長途行駛「布丁果凍餘震感」導致後座暈車的痛點。座椅增加了大腿氣囊腿托。若常載家人，P 版電子避震與舒適座椅可一併兼顧，無需事後再花幾十萬外改大包與輪框。",
+        tag: "Model Y P 實測"
+      },
+      {
+        id: 14,
+        title: "iPhone 18 Ultra 規格價格上市曝光",
+        category: "iPhone",
+        brief: "史上最貴摺疊機 iPhone Ultra 售價挑戰 2000 美金，預計九月同步發表。",
+        desc: "外螢幕採取 4:3 比例（摺疊後約 5.5 吋寬，類似 iPhone 7/8 視覺，打開後 7.8 吋比例完全與 iPad 相同）。配備「隨機變動變位金屬支撐版」鉸鏈與液態金屬耐折技術，首度克服螢幕折痕問題。因模組空間限制，取消 FaceID 改為電源鍵指紋解鎖。",
+        tag: "iPhone Ultra 摺疊"
+      },
+      {
+        id: 15,
+        title: "MacBook Neo 難產？晶片賣太好面臨停產",
+        category: "Mac",
+        brief: "供應鏈重大消息：庫克在極致邊角料管理下發動價格戰，卻人算不如天算。",
+        desc: "因為 599 美金定價太火熱，原先預計消化 iPhone 15 Pro 的 A18 Pro 剩餘晶片庫存消耗一空。若要台積電重開 A18 Pro 產線成本不划算，庫克正陷入「認賠停產方案 A」或「直接升級 A19 Pro 晶片與 12GB RAM 的方案 C」兩難中。",
+        tag: "Neo 晶片風暴"
+      },
+      {
+        id: 16,
+        title: "全螢幕 iPhone 真的來了？動態島何時滾蛋",
+        category: "iPhone",
+        brief: "討厭藥丸打孔的人看過來：螢幕下前鏡頭與 FaceID 預估 2027 年正式量產。",
+        desc: "由於目前螢幕下關閉像素拍照仍有雜訊、顆粒反光和影片色偏（安卓機種常見，蘋果無法接受），為保證前置 4K 影片最高畫質，全隱藏設計需等到 iPhone 20 週年紀念版（2027年）。2026年的 18 Pro 仍會保留置中藥丸，但開孔會大幅縮小。",
+        tag: "全螢幕 2027"
+      },
+      {
+        id: 17,
+        title: "Pixel 10 Pro 錄影挑戰 iPhone 主力 Vlog",
+        category: "Tesla",
+        brief: "帶著 Google Pixel 10 Pro XL 到特斯拉南港中心實測一整天收音與 4K 錄影防手震。",
+        desc: "Pixel 10 Pro 的顯色跟主鏡頭極佳，但 4K 30fps 手持在車內颠簸時仍稍有抖動，回放 Audio 音質與 iPhone 相比仍有些微差距。當天開箱了小改款 Model S / X Plaid（售價微漲 1.5 萬台幣，具備優雅隱藏式氛圍燈，X 六人座中間通道超寬但三排膝部與 Y L 相比偏擠）。",
+        tag: "Pixel 10 Pro vs. S/X"
+      },
+      {
+        id: 18,
+        title: "德州 Austin 超級工廠：FSD 實測與 Cybertruck",
+        category: "Tesla",
+        brief: "實測電傳線控方向盤、後輪轉向的鋼鐵怪獸 Cybertruck，以及德州 Austin FSD 自動會車。",
+        desc: "Cybertruck 是與 SpaceX 採用同級不銹鋼材料製造，配備 110V/220V 車尾插座。方向盤為電傳線控，只需轉半圈即可打滿。實測在圓環與市區修路無標線環境，FSD 能提前變道繞過慢車，表現比真人更優雅，是目前最舒適好開的怪獸皮卡。",
+        tag: "Cybertruck & FSD"
+      },
+      {
+        id: 19,
+        title: "耳塞機皇：Bang & Olufsen Beo Grace 心得",
+        category: "Accessories",
+        brief: "天價 4 萬台幣的真無線藍牙耳機 Beo Grace 實測！致敬 A8 經典耳柄工藝與 LC3+ 編碼。",
+        desc: "音質調校溫潤，極具 B&O 標誌性層次感。獨創充電盒插線（C to C / 3.5mm）變身「低延遲無損無線發射器」，支援 24位元/48kHz。實測 The Rolling Stones 2025 新版《Melody》大魔王段落，人聲與鋼琴、喇叭的分離感與寬廣音場堪比耳罩式耳機。",
+        tag: "B&O Beo Grace"
+      },
+      {
+        id: 20,
+        title: "原廠 Model Y 避震太晃？Koni SPORT 黃筒 vs. 變色龍測試",
+        category: "Tesla",
+        brief: "特斯拉 Model Y 避震器大評比！原廠（28分）、SPORT 黃筒（38分）與變色龍自適應（36分）。",
+        desc: "原廠避震「布丁搖晃感」極易引發暈車，側傾嚴重。SPORT 黃筒操控感與支撐極佳（吸地抓地力強、無多餘餘震，適合前座操控黨）；變色龍自適應阻尼則是原廠 Q 彈強化版，完美吸收小碎震並拉住二次晃動，最適合載家人與寵物，是最高 CP 的舒適首選。",
+        tag: "Koni 避震大評比"
+      }
+    ];
+
+    // 動態渲染知識庫卡片
+    const knowledgeGrid = document.getElementById('knowledgeGrid');
+    
+    function renderCards(data) {
+      knowledgeGrid.innerHTML = '';
+      if (data.length === 0) {
+        knowledgeGrid.innerHTML = `
+          <div class="col-span-full text-center py-12 text-neutral-500">
+            <i data-lucide="info" class="w-12 h-12 mx-auto mb-4 text-neutral-400"></i>
+            沒有找到相符的爆料與評測內容，請嘗試其他關鍵字。
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+      
+      data.forEach(item => {
+        let catColor = "bg-accentBlue/10 text-accentBlue";
+        if (item.category === "iPhone") catColor = "bg-accentRed/10 text-accentRed";
+        if (item.category === "Tesla") catColor = "bg-accentOrange/10 text-accentOrange";
+        if (item.category === "Accessories") catColor = "bg-purple-600/10 text-purple-600";
+        
+        const card = document.createElement('div');
+        card.className = "bg-white dark:bg-appleGray-800 p-6 rounded-2xl border border-appleGray-100 dark:border-neutral-800 space-y-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between";
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${catColor}">${item.tag}</span>
+              <span class="text-xs text-neutral-400">#${item.category}</span>
+            </div>
+            <h4 class="font-bold text-lg text-neutral-900 dark:text-white leading-snug">${item.title}</h4>
+            <p class="text-xs font-semibold text-neutral-600 dark:text-neutral-300">${item.brief}</p>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">${item.desc}</p>
+          </div>
+          <div class="pt-4 border-t border-appleGray-100 dark:border-neutral-700/50 mt-4 flex items-center justify-between text-xs text-neutral-400">
+            <span>來源：蘋果爹評測檔案</span>
+            <span class="text-accentBlue dark:text-blue-400 font-medium">Verified 📝</span>
+          </div>
+        `;
+        knowledgeGrid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // 初始化渲染
+    renderCards(knowledgeData);
+
+    // 搜尋與篩選邏輯
+    let currentCategory = 'all';
+    
+    function filterCategory(category) {
+      currentCategory = category;
+      // 更改 Tag 樣式
+      const tags = document.querySelectorAll('.cat-tag');
+      tags.forEach(tag => {
+        tag.classList.remove('bg-accentBlue', 'text-white');
+        tag.classList.add('bg-white', 'dark:bg-appleGray-800', 'border', 'dark:border-neutral-800', 'text-neutral-500');
+      });
+      
+      const activeTag = event.target;
+      activeTag.classList.remove('bg-white', 'dark:bg-appleGray-800', 'border', 'dark:border-neutral-800', 'text-neutral-500');
+      activeTag.classList.add('bg-accentBlue', 'text-white');
+      
+      filterKnowledge();
+    }
+
+    function filterKnowledge() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      
+      const filtered = knowledgeData.filter(item => {
+        const matchesCategory = (currentCategory === 'all' || item.category === currentCategory);
+        const matchesQuery = (
+          item.title.toLowerCase().includes(query) ||
+          item.brief.toLowerCase().includes(query) ||
+          item.desc.toLowerCase().includes(query) ||
+          item.tag.toLowerCase().includes(query)
+        );
+        return matchesCategory && matchesQuery;
+      });
+      
+      renderCards(filtered);
+    }
+
+    // Tab 切換 (硬體規格大對決)
+    function switchTab(tabId) {
+      // 隱藏所有內容
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.add('hidden'));
+      
+      // 移除按鈕選中狀態
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-accentBlue', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-appleGray-100', 'dark:bg-neutral-800', 'text-neutral-500');
+      });
+      
+      // 顯示目標內容與選中狀態
+      document.getElementById('content-' + tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-' + tabId);
+      activeBtn.classList.remove('bg-appleGray-100', 'dark:bg-neutral-800', 'text-neutral-500');
+      activeBtn.classList.add('bg-accentBlue', 'text-white', 'shadow-sm');
+    }
+
+    // 決策樹 1: MacBook Neo vs Air vs iPad Air 互動
+    function setLaptopStep(step, val) {
+      const laptopQuiz = document.getElementById('laptop-quiz');
+      const laptopResult = document.getElementById('laptop-result');
+      
+      if (step === 1) {
+        if (val === 'yes') {
+          // 有繪圖手寫需求，直接導向 iPad Air
+          showLaptopResult(
+            "iPad Air (M3/M4) + 巧控鍵盤套裝",
+            "大女兒畫畫首選！重量只有 MacBook Neo 的一半（500克）。搭配 eiP 智定義巧控鍵盤（不到原廠1/3價格、自帶筆槽、7色背光）與副廠手寫筆，總預算在 25,000 元上下。不僅輕便、能觸控，更具備 M 晶片強大的 Final Cut Pro 渲染效能，出門在外畫畫、寫報告、追劇全能通吃。"
+          );
+        } else {
+          // 問預算
+          laptopQuiz.innerHTML = `
+            <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+              <span class="text-xs text-neutral-400">問題 2 / 2</span>
+              <p class="font-semibold text-sm mt-1">你的「購買預算上限」大約在哪個範圍？</p>
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <button onclick="setLaptopStep(2, 'low')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue active:bg-accentBlue/10 transition-all text-left">💵 嚴格卡在 2 萬台幣以下</button>
+                <button onclick="setLaptopStep(2, 'high')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue active:bg-accentBlue/10 transition-all text-left">💸 2.2 萬至 2.5 萬台幣（可捏一下）</button>
+              </div>
+            </div>
+          `;
+        }
+      } else if (step === 2) {
+        if (val === 'low') {
+          showLaptopResult(
+            "MacBook Neo (512GB SSD 版本)",
+            "極致高 CP 值的無瀏海筆電！定價 599 美元（教育價僅 16,000~17,000 台幣）。雖然 A18 Pro 晶片頻寬減半，且不支援雷電規格，但只要你鎖定輕度文書、Line、上網、合約、看 YouTube 與 Canva 圖檔設計，它的全螢幕、優異校色、高回彈鍵盤、強悍喇叭及大機身發熱散熱，日常盲測流暢度完全等同高階機。請記得自行加購 30W-40W 快充盤以翻倍充電效率！"
+          );
+        } else {
+          showLaptopResult(
+            "MacBook Air (M2/M3 整新品)",
+            "理性玩家的終極選擇！在 2.2 萬到 2.5 萬台幣的預算下，極力尋找蘋果官方整新品（享有與新品一模一樣的 AppleCare+ 加購保固）。M 系列晶片 8GB 的頻寬是 Neo 的 1.6 倍，多工剪輯流暢度與外接雷電傳輸硬碟速度完勝 Neo，且電池容量大 50%，支援 70W 極速快充，邊剪片邊充電毫無壓力。"
+          );
+        }
+      }
+    }
+
+    function showLaptopResult(title, desc) {
+      document.getElementById('laptop-quiz').classList.add('hidden');
+      const res = document.getElementById('laptop-result');
+      res.classList.remove('hidden');
+      document.getElementById('laptop-result-title').innerText = title;
+      document.getElementById('laptop-result-desc').innerText = desc;
+    }
+
+    function resetLaptopQuiz() {
+      document.getElementById('laptop-quiz').classList.remove('hidden');
+      document.getElementById('laptop-result').classList.add('hidden');
+      // 還原至問題 1
+      document.getElementById('laptop-quiz').innerHTML = `
+        <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+          <span class="text-xs text-neutral-400">問題 1 / 2</span>
+          <p class="font-semibold text-sm mt-1">您平常是否有「手寫筆記、繪畫或繪圖」的創作需求？</p>
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <button onclick="setLaptopStep(1, 'yes')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue transition-all text-left">✍️ 有，超愛隨手畫畫創作</button>
+            <button onclick="setLaptopStep(1, 'no')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentBlue transition-all text-left">⌨️ 無，主要打字、上網與文書</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 決策樹 2: 特斯拉避震器選擇器 互動
+    function setTeslaStep(step, val) {
+      const teslaQuiz = document.getElementById('tesla-quiz');
+      
+      if (step === 1) {
+        if (val === 'driver') {
+          // 前座操控導向，問是否會經常跑山
+          teslaQuiz.innerHTML = `
+            <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+              <span class="text-xs text-neutral-400">問題 2 / 2</span>
+              <p class="font-semibold text-sm mt-1">您是否經常駕駛山路，或追求靈敏的過彎指向性？</p>
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <button onclick="setTeslaStep(2, 'mountain')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">⛰️ 是，經常跑山，追求極致不側傾與吸地感</button>
+                <button onclick="setTeslaStep(2, 'city')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">🌆 否，多在市區與高速通勤，但受夠餘震搖晃</button>
+              </div>
+            </div>
+          `;
+        } else {
+          // 後座家人導向，直接推薦變色龍
+          showTeslaResult(
+            "Koni 變色龍自適應阻尼避震器 (後座與家庭滿載首選)",
+            "分數評比：36 分。它是原廠舒適避震器的完美強化版！完全消除了 Y 原廠最令人抓狂的「布丁果凍二次搖晃感」，大大減輕後座家人與寵物暈車不適。它能完美吸收市區小碎震與水溝蓋颠簸，同時在下坡與高速過彎時自動增強阻尼支撐力，是一款極具性價比的高 CP 舒適選擇。"
+          );
+        }
+      } else if (step === 2) {
+        if (val === 'mountain') {
+          showTeslaResult(
+            "Koni SPORT 黃筒運動版避震器 (熱血指向操控之選)",
+            "分數評比：38 分。一換上去宛如換了台低底盤的性能跑車！方向盤指向性極度精準，過彎側傾感完全消失。其前輪避震器還可使用轉盤在 1 到 10 級（0最硬、10最軟）之間自由手動調教（蘋果爹個人偏好調到 8.5 偏軟），能帶來驚人的抓地吸地貼地感，開山路充滿無窮駕馭樂趣。"
+          );
+        } else {
+          showTeslaResult(
+            "直上 Model Y Performance 避震或維持原廠",
+            "如果平時多在市區與高速通勤，且原廠避震對你和家人來說已經足夠舒適，不需要多花這筆外改費用。或是可以考慮直接購入 Model Y Performance 版本，其出廠即自帶 Insane Mode 彈射動力、大腿腿托舒適座椅，以及原廠兩段可調電子懸吊，同樣能消除布丁感，一步到位！"
+          );
+        }
+      }
+    }
+
+    function showTeslaResult(title, desc) {
+      document.getElementById('tesla-quiz').classList.add('hidden');
+      const res = document.getElementById('tesla-result');
+      res.classList.remove('hidden');
+      document.getElementById('tesla-result-title').innerText = title;
+      document.getElementById('tesla-result-desc').innerText = desc;
+    }
+
+    function resetTeslaQuiz() {
+      document.getElementById('tesla-quiz').classList.remove('hidden');
+      document.getElementById('tesla-result').classList.add('hidden');
+      document.getElementById('tesla-quiz').innerHTML = `
+        <div class="bg-white dark:bg-appleGray-800 p-4 rounded-xl border border-appleGray-100 dark:border-neutral-800">
+          <span class="text-xs text-neutral-400">問題 1 / 2</span>
+          <p class="font-semibold text-sm mt-1">你的 Model Y 載客習慣，平常最重視的是誰的體感？</p>
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <button onclick="setTeslaStep(1, 'driver')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">😎 自己開，享受操控指向與路感</button>
+            <button onclick="setTeslaStep(1, 'family')" class="p-3 rounded-lg border text-sm font-medium hover:border-accentOrange active:bg-accentOrange/10 transition-all text-left">👨‍👩‍👧 載家人與毛孩，最怕後座顛簸暈車</button>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
